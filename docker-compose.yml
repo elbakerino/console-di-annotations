@@ -1,0 +1,15 @@
+version: "3.0"
+
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    # add ports when you add a router/middleware, for only console we don't need to add those
+    #ports:
+    #  - "3000:80"
+    environment:
+      # you can access the host DB now with getenv('DB_HOST')
+      - DB_HOST=host.docker.internal
+    volumes:
+      - ./:/var/www/html

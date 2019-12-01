@@ -1,0 +1,43 @@
+{
+  "name": "elbakerino/console",
+  "license": "MIT",
+  "type": "project",
+  "authors": [
+    {
+      "name": "Michael Becker",
+      "email": "michael@bemit.codes",
+      "homepage": "https://mlbr.xyz",
+      "role": "Developer"
+    }
+  ],
+  "description": "PHP Console with DI and Annotations, based on GetOpt.php",
+  "keywords": [
+    "console",
+    "php-di",
+    "di",
+    "annotation",
+    "getopt-php",
+    "container"
+  ],
+  "require": {
+    "php": ">=7.3",
+    "psr/container": "^1.0",
+    "php-di/php-di": "^6.0.0",
+    "orbiter/annotations-util": "0.2.x",
+    "ulrichsg/getopt-php": "^3.2.2",
+    "vlucas/phpdotenv": "^3.6"
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-master",
+    "filp/whoops": "^2.5.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Annotations\\": "Annotations",
+      "Commands\\": "Commands",
+      "Lib\\": "Lib"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}

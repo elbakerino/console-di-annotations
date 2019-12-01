@@ -1,0 +1,18 @@
+# env variables, uncomment when you use it! don't add config to git
+#.env
+
+# default tmp dir
+/tmp
+
+# Composer
+/vendor
+
+# Mac
+.DS_Store
+
+#
+## JetBrains IDE's
+
+.idea/
+*.iml
+*.iws
