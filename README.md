@@ -1,8 +1,6 @@
 # PHP Console with DI and Annotations
 
-Build PHP Console applications with Dependency Injection, Annotations.
-
-This is an **auto-config** skeleton 🧚 bundling multiple libs.
+Build PHP Console applications with Dependency Injection and Annotations.
 
 Setup app skeleton and install dependencies with [composer](https://getcomposer.org/):
 
@@ -21,7 +19,7 @@ That's it - ready to code!
     php cli demo:welcome
     php cli demo:bye
     
-For using [Docker](https://www.docker.com/), download repository and spin up services:
+For [Docker](https://www.docker.com/), download repository and spin up services:
     
     git clone https://github.com/elbakerino/console-di-annotations.git
     
@@ -36,22 +34,25 @@ For using [Docker](https://www.docker.com/), download repository and spin up ser
 
 At [_commands.php](_commands.php) demo [GetOpt-PHP](http://getopt-php.github.io/getopt-php/commands.html) commands are registered with inline documentation.
 
-It's as short as:
+Here also the commands are registered for found annotations.
+
+For only manual command, it's as short as:
 
 ```php
 <?php
-Lib\ConsoleApp::addInit(static function(GetOpt\GetOpt $get_opt) { // already dependency injected!
+return static function(GetOpt\GetOpt $get_opt) {
+    // already dependency injected!
 
     $get_opt->addCommand(new GetOpt\Command('demo', [Commands\Demo::class, 'handle']));
     //                   new GetOpt\Command(<name>,  <handler>,                     <options>[optional])
-});
+};
 ```
 
-You can also register commands with annotations, like the demo commands *(todo: annotation command docs)*.
+You can register commands with annotations, like the demo commands *(todo: annotation command docs)*.
 
 See [Commands\Demo](Commands/Demo.php) for a demo `class` command handler, any `callable`/`resolvable` is possible as command handler.
 
-See [Commands\Demo](Commands/DemoMultiple.php) for a demo `class` command handler which uses annotations at method level, not class level.
+See [Commands\DemoMultiple](Commands/DemoMultiple.php) for a demo `class` command handler which uses annotations at method level, not class level.
 
 Schematic use of defined commands:
 
@@ -60,6 +61,8 @@ Schematic use of defined commands:
 ## More Details
     
 In [launch.php](launch.php) the whole setup and auto-config is done, see inline-comments for details.
+
+In [_definitions.php](_definitions.php) you can define/overwrite service definitions for PHP-DI.
 
 See [Lib\ConsoleApp](Lib/ConsoleApp.php) for the execution of GetOpt, use as base to switch to another console framework.
 
@@ -78,6 +81,19 @@ For further details see:
     - with caching static code analyzer for e.g. getting class names by directory (needed for auto-config)
     
 Install any other dependency for your project from [packagist](https://packagist.org/).
+
+## Todos
+
+There is not really more needed, you can write simple and efficient console apps.
+
+Some nice to haves would be:
+
+- [ ] print line, print success, print error helper functions
+- [ ] print in color helper functions
+- [ ] input handling helper functions
+- [ ] some middleware pipelines around commands
+    - [ ] time and performance middleware 
+- [ ] logging with PSR logger (monolog) by default 
 
 ### Downloads
 

@@ -6,7 +6,6 @@ use GetOpt\Command;
 use GetOpt\GetOpt;
 use GetOpt\Option;
 use Invoker\InvokerInterface;
-use Psr\Container\ContainerInterface;
 
 /**
  * Integrates GetOpt and invokes the matched command with dependencies injected.
@@ -17,21 +16,16 @@ class ConsoleApp {
     /**
      * @var array the options currently used
      */
-    protected $options;
+    protected array $options = [];
     /**
      * @var array the operands currently used
      */
-    protected $operands;
+    protected array $operands = [];
 
     /**
-     * @var callable:\GetOpt\Command[]
+     * @var GetOpt
      */
-    protected static $initializers;
-
-    /**
-     * @var \GetOpt\GetOpt
-     */
-    protected $get_opt;
+    protected GetOpt $get_opt;
 
     /**
      * ConsoleApp constructor.
@@ -50,7 +44,6 @@ class ConsoleApp {
     /**
      * Matching of the console request to a command, setting matched data and invoking it.
      *
-     * @param \Psr\Container\ContainerInterface $container
      * @param \Invoker\InvokerInterface $invoker
      *
      * @throws \GetOpt\ArgumentException
@@ -58,14 +51,8 @@ class ConsoleApp {
      * @throws \Invoker\Exception\NotCallableException
      * @throws \Invoker\Exception\NotEnoughParametersException
      */
-    public function handle(ContainerInterface $container, InvokerInterface $invoker) {
+    public function handle(InvokerInterface $invoker) {
         // you can type-hint also for the ContainerInterface or Invoker anywhere else (which is called from an invoker)
-
-        foreach(static::$initializers as $initializer) {
-            // here you see how the `initializer` are pushed to the container enabled invoker
-            // can be used to invoke anything with dependencies injected!
-            $invoker->call($initializer);
-        }
 
         $this->get_opt->process();
 
@@ -104,14 +91,5 @@ class ConsoleApp {
      */
     public function getOperands() {
         return $this->operands;
-    }
-
-    /**
-     * Helper to setup console
-     *
-     * @param string|callable $initializer a resolvable that should interact with `GetOpt` to set it up, e.g. adding commands
-     */
-    public static function addInit($initializer) {
-        static::$initializers[] = $initializer;
     }
 }
